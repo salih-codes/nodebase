@@ -6,10 +6,18 @@ import { HydrateClient } from "@/trpc/server";
 import WorkflowsList, {
 	WorkflowsContainer,
 } from "@/features/workflows/components/workflows";
+import type { SearchParams } from "nuqs/server";
+import { workflowsParamsLoader } from "@/features/workflows/servers/params-loader";
 
-export default async function Page() {
+type Props = {
+	searchParams: Promise<SearchParams>;
+};
+export default async function Page({ searchParams }: Props) {
 	await requireAuth();
-	prefetchWorkflows();
+	const params = await workflowsParamsLoader(searchParams);
+
+	prefetchWorkflows(params);
+
 	return (
 		<WorkflowsContainer>
 			<HydrateClient>
