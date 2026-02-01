@@ -1,3 +1,5 @@
+import { NuqsAdapter } from "nuqs/adapters/next/app";
+
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Figtree } from "next/font/google";
 import "./globals.css";
@@ -33,7 +35,7 @@ export default function RootLayout({
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
 				<TRPCReactProvider>
-					{children}
+					<NuqsAdapter>{children}</NuqsAdapter>
 					<Toaster />
 				</TRPCReactProvider>
 			</body>
